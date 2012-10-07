@@ -6,7 +6,7 @@
 SI.Game.prototype.start = function () {
 	this.initializeCanvas();
 	this.initializeGame();
-	this.drawAllElements();
+	//this.drawAllElements();
 }
 
 
@@ -27,14 +27,7 @@ SI.Game.prototype.initializeCanvas = function () {
 	$(document).keyup(function (e) {
 		self.onKeyUp(e);
 	});
-	setInterval(function () {
-		self.moveAllElements();
-		self.deleteExplodedRockets();
-		self.drawAllElements();
-		self.freeRocketLauncher();
-	}, SI.Sizes.MSPF);
 }
-
 /*
  * Creates the player ship and enemy ships
  * Cleans the rocket list and allows firing
@@ -42,14 +35,23 @@ SI.Game.prototype.initializeCanvas = function () {
 
 SI.Game.prototype.initializeGame = function () {
 	this.playerShip = new SI.SpaceShip(SI.Sizes.width / 2 - SI.Sizes.playerShipWidth / 2,
-			SI.Sizes.height - 2*SI.Sizes.playerShipHeight,
+			SI.Sizes.bottomMargin - SI.Sizes.playerShipHeight,
 			SI.Sizes.playerShipWidth,
 			SI.Sizes.playerShipHeight);
 	this.rockets = [];
-
 	this.enemyShips = this.createEnemyShips(SI.Sizes.enemyInRow, SI.Sizes.enemyInColumn);
+	this.detector = new SI.CDetection();
 	// clearance to fire again
 	this.okToFire = true;
+	var self = this;
+	setInterval(function () {	
+		self.moveAllElements();
+		self.deleteExplodedRockets();
+		self.deleteExplodedEnemyShips();
+		self.drawAllElements();
+		self.freeRocketLauncher();
+	}, SI.Sizes.MSPF);
+
 }
 
 
@@ -104,6 +106,22 @@ SI.Game.prototype.deleteExplodedRockets = function () {
 	this.rockets = aliveRockets;
 }
 
+SI.Game.prototype.deleteExplodedEnemyShips = function () {
+	var toDelete = this.detector.detect(this.rockets, this.enemyShips.ships);
+	for (var i = 0; i < toDelete.length; i += 1) {
+		this.enemyShips.ships[toDelete[i].row].splice(toDelete[i].col, 1);
+	}
+	var i = 0;
+	while (i < this.enemyShips.ships.length) {
+		if(this.enemyShips.ships[i].length == 0) {
+			this.enemyShips.ships.splice(i, 1);
+		}
+		else {
+			i += 1;
+		}
+	}
+}
+
 /*
  * Chnage the current key pressed
  */
@@ -119,3 +137,4 @@ SI.Game.prototype.onKeyDown = function (e) {
 SI.Game.prototype.onKeyUp = function (e) {
 	this.currentKey = 0;
 }
+

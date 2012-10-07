@@ -67,7 +67,7 @@ SI.Rocket = function (x, y, direction) {
  */
 SI.Rocket.prototype.move = function (deltaY) {
 	this.y += this.direction * deltaY;
-	if(this.y <= 0) {
+	if(this.y <= 0 || this.y >= SI.Sizes.bottomMargin) {
 		this.exploded = true;
 	}
 }

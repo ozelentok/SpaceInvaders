@@ -15,6 +15,8 @@ SI.Game = function() {
 	this.enemyShips;
 	// clearance to fire again
 	this.okToFire;
+	// collison detecor
+	this.detector;
 }
 /*
  * Sizes for drawing and computing
@@ -41,11 +43,11 @@ SI.Sizes = {
 	lineWidth: 1,
 	maxRockets: 8,
 	//miliseconds per frame
-	MSPF: 1000 / 24 
+	MSPF: 1000 / 30 
 }
 	SI.Sizes.topMargin = 100,
 	SI.Sizes.leftMargin =  30,
-	SI.Sizes.bottomMargin =  SI.Sizes.height - 100,
+	SI.Sizes.bottomMargin = SI.Sizes.height - 30,
 	SI.Sizes.rightMargin = SI.Sizes.width - 30,
 
 /*
