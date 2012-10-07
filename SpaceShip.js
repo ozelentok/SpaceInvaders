@@ -1,4 +1,3 @@
-var SI = {};
 /*
  * Constructs a new SpaceShip
  * x and y refer to the top-left
