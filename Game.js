@@ -9,7 +9,10 @@ SI.Game = function() {
 	// rockets on the game grid
 	this.rockets = [];
 	// player ship
-	this.playerShip = new SI.SpaceShip(SI.Sizes.width / 2, SI.Sizes.height - 2*SI.Sizes.playerShipRad, SI.Sizes.playerShipRad);
+	this.playerShip = new SI.SpaceShip(SI.Sizes.width / 2 - SI.Sizes.playerShipWidth / 2,
+			SI.Sizes.height - 2*SI.Sizes.playerShipHeight,
+			SI.Sizes.playerShipWidth,
+			SI.Sizes.playerShipHeight);
 	// enemy ships
 	this.enemyShips = [];
 	// clearance to fire again
@@ -30,7 +33,7 @@ SI.Game.prototype.onKeyDown = function(e) {
 	this.currentKey = e.which;
 	if(this.currentKey == SI.Keys.Up && this.okToFire && this.rockets.length < SI.Sizes.maxRockets) {
 		this.lockRocketLauncher();
-		this.rockets.push(new SI.Rocket(this.playerShip.x, this.playerShip.y, SI.Directions.Up));
+		this.rockets.push(new SI.Rocket(this.playerShip.x + this.playerShip.width / 2, this.playerShip.y, SI.Directions.Up));
 	}
 }
 SI.Game.prototype.onKeyUp = function(e) {
@@ -126,23 +129,29 @@ SI.Game.prototype.movePlayerShip = function () {
  * Sizes for drawing
  */
 SI.Sizes = {
-	height:	800,
-	width:	1000,
-	playerShipRad: 25,
+	height:	1000,
+	width:	900,
+
+	playerShipWidth: 40,
+	playerShipHeight: 20,
 	playerStep: 10,
-	enemyShipRad: 10,
+
+	enemyShipWidth: 10,
+	enemyShipHeight: 5,
+
 	rocketHeight: 15,
 	rocketWidth: 5,
-	rocketStep: 25,
+	rocketStep: 20,
+
 	lineWidth: 1,
 	maxRockets: 4,
 	//miliseconds per frame
 	MSPF: 1000 / 25 
 }
 SI.Colors = {
-	player: "blue",
+	player: "green",
 	enemy: "red",
-	rocket: "white",
+	rocket: "cyan",
 	background: "black"
 }
 SI.Directions = {

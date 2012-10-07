@@ -1,15 +1,18 @@
 var SI = {};
 /*
  * Constructs a new SpaceShip
+ * x and y refer to the top-left
  * Parameters
  * x - spaceship position on x-axis
  * y - spaceship position on y-axis
- * rad - spaceship radious
+ * width - spaceship width
+ * height - spaceship height
  */
-SI.SpaceShip = function (x, y, rad) {
+SI.SpaceShip = function (x, y, width, height) {
 	this.x = x;
 	this.y = y;
-	this.rad = rad;
+	this.width = width;
+	this.height = height;
 }
 /*
  * Moves spaceship by delta from it's current position
@@ -19,19 +22,19 @@ SI.SpaceShip = function (x, y, rad) {
  */
 SI.SpaceShip.prototype.move = function (deltaX, deltaY) {
 	this.x += deltaX;
-	if(this.x <= this.rad) {
-		this.x = this.rad;
+	if(this.x <= 0) {
+		this.x = 0;
 	}
-	else if(this.x >= SI.Sizes.width - this.rad) {
-		this.x = SI.Sizes.width - this.rad;
+	else if(this.x >= SI.Sizes.width - this.width) {
+		this.x = SI.Sizes.width - this.width;
 	}
 	
 	this.y += deltaY;
-	if(this.y <= this.rad) {
-		this.y = this.rad;
+	if(this.y <= 0) {
+		this.y = 0;
 	}
-	else if(this.y >= SI.Sizes.height - this.rad) {
-		this.x = SI.Sizes.height - this.rad;
+	else if(this.y >= SI.Sizes.height - this.height) {
+		this.x = SI.Sizes.height - this.height;
 	}
 }
 /*
@@ -40,9 +43,7 @@ SI.SpaceShip.prototype.move = function (deltaX, deltaY) {
  * painter - canvas context(painter)
  */
 SI.SpaceShip.prototype.draw = function (painter) {
-	painter.beginPath();
-	painter.arc(this.x, this.y, this.rad, 0, Math.PI*2, true);
-	painter.fill();
+	painter.fillRect(this.x, this.y, this.width, this.height);
 }
 /*
  * Constructs a new rocket 
@@ -72,8 +73,6 @@ SI.Rocket.prototype.move = function (deltaY) {
 	}
 }
 SI.Rocket.prototype.draw = function (painter) {
-	painter.fillStyle = "white";
-	painter.strokeStyle = "red";
 	painter.beginPath();
 	painter.moveTo(this.x, this.y);
 	painter.lineTo(this.x, this.y + this.direction * SI.Sizes.rocketHeight);
