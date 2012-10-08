@@ -45,18 +45,19 @@ SI.Sizes = {
 	//miliseconds per frame
 	MSPF: 1000 / 30 
 }
-	SI.Sizes.topMargin = 100,
-	SI.Sizes.leftMargin =  30,
-	SI.Sizes.bottomMargin = SI.Sizes.height - 30,
-	SI.Sizes.rightMargin = SI.Sizes.width - 30,
+	SI.Sizes.topMargin = 150,
+	SI.Sizes.leftMargin =  0,
+	SI.Sizes.bottomMargin = SI.Sizes.height - 60,
+	SI.Sizes.rightMargin = SI.Sizes.width - 0,
 
 /*
  * Colors for fillStyle and strokeStyle
  */
 SI.Colors = {
-	player: "green",
+	player: "#0f0",
 	enemy: "#f30",
 	rocket: "#07f",
+	ground: "green",
 	background: "black"
 }
 /*

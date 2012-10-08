@@ -58,6 +58,7 @@ SI.Game.prototype.moveRockets = function () {
  */
 SI.Game.prototype.drawAllElements = function () {
 	this.drawGrid();
+	this.drawGround();
 	this.drawPlayerShip();
 	this.drawEnemyShips();
 	this.drawRockets();
@@ -100,4 +101,10 @@ SI.Game.prototype.drawRockets = function () {
 	}
 }
 
-
+/*
+ * Draws the ground
+ */
+SI.Game.prototype.drawGround = function () {
+	this.xpainter.fillStyle = SI.Colors.ground;
+	this.xpainter.fillRect(0,SI.Sizes.bottomMargin, SI.Sizes.width, 10);
+}
