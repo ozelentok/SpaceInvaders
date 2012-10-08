@@ -6,7 +6,7 @@
 SI.Game.prototype.start = function () {
 	this.initializeCanvas();
 	this.initializeGame();
-	//this.drawAllElements();
+	this.drawAllElements();
 }
 
 
@@ -44,6 +44,10 @@ SI.Game.prototype.initializeGame = function () {
 	this.detector = new SI.CDetection();
 	// clearance to fire again
 	this.okToFire = true;
+
+	this.points = 0;
+
+	this.lives = 3;
 	var self = this;
 	setInterval(function () {	
 		self.moveAllElements();

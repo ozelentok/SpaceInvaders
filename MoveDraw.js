@@ -68,8 +68,7 @@ SI.Game.prototype.drawAllElements = function () {
  * Draws the game grid
  */
 SI.Game.prototype.drawGrid = function () {
-	this.xpainter.fillStyle = SI.Colors.background;
-	this.xpainter.fillRect(0, 0, SI.Sizes.width, SI.Sizes.height);
+	this.xpainter.drawImage(SI.Images.backgroundImg, 0, 0, SI.Sizes.width, SI.Sizes.height);
 }
 /*
  * Draws the player ship

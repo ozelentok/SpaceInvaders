@@ -17,6 +17,10 @@ SI.Game = function() {
 	this.okToFire;
 	// collison detecor
 	this.detector;
+	// amount of points
+	this.points
+	// lives left
+	this.lives;
 }
 /*
  * Sizes for drawing and computing
@@ -45,17 +49,20 @@ SI.Sizes = {
 	//miliseconds per frame
 	MSPF: 1000 / 30 
 }
-	SI.Sizes.topMargin = 150,
+	SI.Sizes.topMargin = 120,
 	SI.Sizes.leftMargin =  0,
 	SI.Sizes.bottomMargin = SI.Sizes.height - 60,
 	SI.Sizes.rightMargin = SI.Sizes.width - 0,
 
 SI.Images = {};
 
+SI.Images.backgroundImg = new Image();
+SI.Images.backgroundImg.src = 'images/background.png';
+
 SI.Images.playerImg = new Image();
 SI.Images.playerImg.src = 'images/player.png';
 
-SI.Images.enemyImg = new Image()
+SI.Images.enemyImg = new Image();
 SI.Images.enemyImg.src = 'images/enemy.png';
 
 /*
