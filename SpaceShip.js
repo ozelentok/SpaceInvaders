@@ -52,13 +52,14 @@ SI.SpaceShip.prototype.draw = function (painter) {
  * x - rocket position on x-axis
  * y - rocket position on y-axis
  */
-SI.Rocket = function (x, y, direction) {
+SI.Rocket = function (x, y, direction, img) {
 	this.x = x;
 	this.y = y;
 	this.direction = direction;
 	// current status of rocket
 	// used for deletion of rocket
 	this.exploded = false;
+	this.img = img;
 }
 /*
  * Moves rocket by delta from it's current position
@@ -74,8 +75,5 @@ SI.Rocket.prototype.move = function (deltaY) {
 	}
 }
 SI.Rocket.prototype.draw = function (painter) {
-	painter.beginPath();
-	painter.moveTo(this.x, this.y);
-	painter.lineTo(this.x, this.y + this.direction * SI.Sizes.rocketHeight);
-	painter.stroke();
+	painter.drawImage(this.img, this.x, this.y, SI.Sizes.rocketWidth, SI.Sizes.rocketHeight); 
 }

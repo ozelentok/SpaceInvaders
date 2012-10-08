@@ -167,7 +167,7 @@ SI.Game.prototype.launchEnemyRocket = function () {
 		var last = Math.floor(Math.random() * this.enemyShips.ships[row].length);
 		var ship = this.enemyShips.ships[row][last]
 		this.rocketsEnemies.push(new SI.Rocket(ship.x + ship.width / 2,
-					ship.y + ship.height / 2, SI.Directions.Down));
+					ship.y + ship.height / 2, SI.Directions.Down, SI.Images.rocketDownImg));
 		this.turnToFire = 0;
 	}
 	else {
@@ -183,8 +183,8 @@ SI.Game.prototype.onKeyDown = function (e) {
 	if(this.currentKey == SI.Keys.Up && this.okToFire &&
 			this.rocketsPlayer.length < SI.Sizes.maxRockets) {
 		this.lockRocketLauncher();
-		this.rocketsPlayer.push(new SI.Rocket(this.playerShip.x + this.playerShip.width / 2,
-					this.playerShip.y, SI.Directions.Up));
+		this.rocketsPlayer.push(new SI.Rocket(this.playerShip.x + this.playerShip.width / 2 - SI.Sizes.rocketWidth / 2,
+					this.playerShip.y, SI.Directions.Up, SI.Images.rocketUpImg));
 	}
 }
 SI.Game.prototype.onKeyUp = function (e) {
