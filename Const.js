@@ -34,7 +34,7 @@ SI.Sizes = {
 	playerStep: 20,
 
 	enemyInRow: 6,
-	enemyInColumn: 8,
+	enemyInColumn: 10,
 	enemyWidth: 40,
 	enemyHeight: 30,
 	enemyStepHort: 5,
@@ -53,15 +53,22 @@ SI.Sizes = {
 	MSPF: 1000 / 30,
 	
 	font: '25px Arial',
+	messageFont: '100px Arial',
 
 }
-	SI.Sizes.topMargin = 50,
-	SI.Sizes.leftMargin =  10,
-	SI.Sizes.bottomMargin = SI.Sizes.height - 60,
-	SI.Sizes.rightMargin = SI.Sizes.width - 10,
+	SI.Sizes.topMargin = 0;
+	SI.Sizes.leftMargin =  10;
+	SI.Sizes.bottomMargin = SI.Sizes.height - 60;
+	SI.Sizes.rightMargin = SI.Sizes.width - 10;
 
-	SI.Sizes.textMargin = SI.Sizes.bottomMargin + 45,
+	SI.Sizes.textMargin = SI.Sizes.bottomMargin + 45;
 	SI.Sizes.textRightMargin = SI.Sizes.width - 140;
+
+	SI.Sizes.popUpX = 50;
+	SI.Sizes.popUpY = 100;
+	SI.Sizes.popUpWidth = SI.Sizes.width - 100;
+	SI.Sizes.popUpHeight = SI.Sizes.height - 400;
+
 SI.Images = {};
 
 SI.Images.backgroundImg = new Image();
@@ -77,12 +84,11 @@ SI.Images.enemyImg.src = 'images/enemy.png';
  * Colors for fillStyle and strokeStyle
  */
 SI.Colors = {
-	player: '#0f0',
-	enemy: '#f30',
 	rocket: '#07f',
 	ground: 'green',
 	text: 'white',
-	background: 'black'
+	gold: '#ff0',
+	popUpBackground: 'rgba(0, 0, 0, 0.5)'
 }
 /*
  * Directions for rockets and spaceships

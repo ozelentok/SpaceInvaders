@@ -49,17 +49,29 @@ SI.Game.prototype.initializeGame = function () {
 	this.points = 0;
 
 	this.lives = 3;
+
 	var self = this;
-	setInterval(function () {	
+	this.clock = setInterval(function () {	
 		self.moveAllElements();
 		self.deleteExplodedRockets();
 		self.deleteExplodedEnemyShips();
 		self.drawAllElements();
 		self.freeRocketLauncher();
+		self.checkEndGame();
 	}, SI.Sizes.MSPF);
 
 }
 
+SI.Game.prototype.checkEndGame = function () {
+	if(this.enemyShips.ships.length == 0) {
+		clearInterval(this.clock);
+		this.popUpMessage("You Win!");
+	}
+	else if(this.lives == -1) {
+		clearInterval(this.clock);
+		this.popUpMessage("You Lost!");
+	}
+}
 
 /*
  * Creates enemy ships

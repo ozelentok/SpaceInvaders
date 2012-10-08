@@ -75,7 +75,7 @@ SI.Game.prototype.drawAllElements = function () {
 	this.drawPlayerShip();
 	this.drawEnemyShips();
 	this.drawRockets();
-	this.drawText();
+	this.drawStatus();
 }
 
 /*
@@ -94,7 +94,6 @@ SI.Game.prototype.drawPlayerShip = function () {
  * Draws the enemy ships
  */
 SI.Game.prototype.drawEnemyShips = function () {
-	this.xpainter.fillStyle = SI.Colors.enemy;
 	for (var i = 0; i < this.enemyShips.ships.length; i += 1) {
 		for (var j = 0; j < this.enemyShips.ships[i].length; j += 1) {
 			this.enemyShips.ships[i][j].draw(this.xpainter);
@@ -120,7 +119,7 @@ SI.Game.prototype.drawGround = function () {
 	this.xpainter.fillRect(0,SI.Sizes.bottomMargin, SI.Sizes.width, 10);
 }
 
-SI.Game.prototype.drawText = function () {
+SI.Game.prototype.drawStatus = function () {
 	this.xpainter.fillStyle  = SI.Colors.text;
 	this.xpainter.lineWidth = SI.Sizes.lineWidth;
 
@@ -130,3 +129,22 @@ SI.Game.prototype.drawText = function () {
 	output = 'Lives left: ' + this.lives;
 	this.xpainter.fillText(output, SI.Sizes.textRightMargin, SI.Sizes.textMargin); 
 }
+
+SI.Game.prototype.popUpMessage = function (message) {
+	this.xpainter.fillStyle = SI.Colors.popUpBackground
+	this.xpainter.strokeStyle = SI.Colors.gold;
+	this.xpainter.fillRect(SI.Sizes.popUpX,
+			SI.Sizes.popUpY,
+			SI.Sizes.popUpWidth,
+			SI.Sizes.popUpHeight);
+	this.xpainter.strokeRect(SI.Sizes.popUpX,
+			SI.Sizes.popUpY,
+			SI.Sizes.popUpWidth,
+			SI.Sizes.popUpHeight);
+	this.xpainter.fillStyle = SI.Colors.text;
+	this.xpainter.font = SI.Sizes.messageFont;
+	this.xpainter.fillText(message,
+			(SI.Sizes.popUpX + SI.Sizes.popUpWidth) / 2 - 180,
+			(SI.Sizes.popUpY + SI.Sizes.popUpHeight) / 2);
+}
+
