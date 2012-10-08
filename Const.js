@@ -34,10 +34,11 @@ SI.Sizes = {
 	playerStep: 20,
 
 	enemyInRow: 6,
-	enemyInColumn: 10,
+	enemyInColumn: 8,
 	enemyWidth: 40,
 	enemyHeight: 30,
-	enemyStep: 5,
+	enemyStepHort: 5,
+	enemyStepVert: 10,
 	enemySpacing: 15,
 
 	rocketHeight: 15,
@@ -46,6 +47,8 @@ SI.Sizes = {
 
 	lineWidth: 1,
 	maxRockets: 8,
+
+	pointModifer: 5,
 	//miliseconds per frame
 	MSPF: 1000 / 30,
 	

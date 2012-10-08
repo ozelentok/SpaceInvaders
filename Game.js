@@ -115,9 +115,12 @@ SI.Game.prototype.deleteExplodedRockets = function () {
 
 SI.Game.prototype.deleteExplodedEnemyShips = function () {
 	var toDelete = this.detector.detect(this.rockets, this.enemyShips.ships);
+	// deletes a single ship every time
 	for (var i = 0; i < toDelete.length; i += 1) {
 		this.enemyShips.ships[toDelete[i].row].splice(toDelete[i].col, 1);
+		this.points += SI.Sizes.pointModifer;
 	}
+	// if a row is empty, remove it
 	var i = 0;
 	while (i < this.enemyShips.ships.length) {
 		if(this.enemyShips.ships[i].length == 0) {

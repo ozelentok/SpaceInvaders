@@ -28,15 +28,28 @@ SI.Game.prototype.movePlayerShip = function () {
  * then the whole row will change their direction
  */
 SI.Game.prototype.moveEnemyShips = function () {
-	for (var i = 0; i < this.enemyShips.ships.length; i += 1) {
+	var dropDown = false;
+	var lastRow = this.enemyShips.ships.length - 1;
+	for (var i = lastRow; i >= 0; i -= 1) {
 		if(this.enemyShips.ships[i][0].x <= SI.Sizes.leftMargin) {
 			this.enemyShips.directions[i] = SI.Directions.Right;
+			if(i == lastRow) {
+				dropDown = true;
+			}
 		}
 		else if(this.enemyShips.ships[i][this.enemyShips.ships[i].length - 1].x + this.enemyShips.ships[i][0].width >= SI.Sizes.rightMargin) {
 			this.enemyShips.directions[i] = SI.Directions.Left;
+			if(i == lastRow) {
+				dropDown = true;
+			}
 		}
 		for (var j = 0; j < this.enemyShips.ships[i].length; j += 1) {
-			this.enemyShips.ships[i][j].move(this.enemyShips.directions[i] * SI.Sizes.enemyStep, 0);
+			if(dropDown) {
+				this.enemyShips.ships[i][j].move(this.enemyShips.directions[i] * SI.Sizes.enemyStepVert, SI.Sizes.enemyStepVert);
+			}
+			else {
+				this.enemyShips.ships[i][j].move(this.enemyShips.directions[i] * SI.Sizes.enemyStepHort, 0);
+			}
 		}
 	}
 }
