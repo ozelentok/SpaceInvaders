@@ -62,6 +62,7 @@ SI.Game.prototype.drawAllElements = function () {
 	this.drawPlayerShip();
 	this.drawEnemyShips();
 	this.drawRockets();
+	this.drawText();
 }
 
 /*
@@ -104,4 +105,15 @@ SI.Game.prototype.drawRockets = function () {
 SI.Game.prototype.drawGround = function () {
 	this.xpainter.fillStyle = SI.Colors.ground;
 	this.xpainter.fillRect(0,SI.Sizes.bottomMargin, SI.Sizes.width, 10);
+}
+
+SI.Game.prototype.drawText = function () {
+	this.xpainter.fillStyle  = SI.Colors.text;
+	this.xpainter.lineWidth = SI.Sizes.lineWidth;
+
+	var output = 'Points: ' + this.points;
+	this.xpainter.fillText(output, SI.Sizes.leftMargin, SI.Sizes.textMargin); 
+
+	output = 'Lives left: ' + this.lives;
+	this.xpainter.fillText(output, SI.Sizes.textRightMargin, SI.Sizes.textMargin); 
 }

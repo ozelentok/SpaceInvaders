@@ -47,13 +47,18 @@ SI.Sizes = {
 	lineWidth: 1,
 	maxRockets: 8,
 	//miliseconds per frame
-	MSPF: 1000 / 30 
-}
-	SI.Sizes.topMargin = 120,
-	SI.Sizes.leftMargin =  0,
-	SI.Sizes.bottomMargin = SI.Sizes.height - 60,
-	SI.Sizes.rightMargin = SI.Sizes.width - 0,
+	MSPF: 1000 / 30,
+	
+	font: '25px Arial',
 
+}
+	SI.Sizes.topMargin = 50,
+	SI.Sizes.leftMargin =  10,
+	SI.Sizes.bottomMargin = SI.Sizes.height - 60,
+	SI.Sizes.rightMargin = SI.Sizes.width - 10,
+
+	SI.Sizes.textMargin = SI.Sizes.bottomMargin + 45,
+	SI.Sizes.textRightMargin = SI.Sizes.width - 140;
 SI.Images = {};
 
 SI.Images.backgroundImg = new Image();
@@ -73,6 +78,7 @@ SI.Colors = {
 	enemy: '#f30',
 	rocket: '#07f',
 	ground: 'green',
+	text: 'white',
 	background: 'black'
 }
 /*

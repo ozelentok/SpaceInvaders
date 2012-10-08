@@ -21,6 +21,7 @@ SI.Game.prototype.initializeCanvas = function () {
 	this.xpainter = $canvas[0].getContext('2d');
 	this.xpainter.canvas.height = SI.Sizes.height;
 	this.xpainter.canvas.width = SI.Sizes.width;
+	this.xpainter.font = SI.Sizes.font;
 	$(document).keydown(function (e) {
 			self.onKeyDown(e);
 	});
