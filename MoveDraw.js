@@ -75,8 +75,6 @@ SI.Game.prototype.drawGrid = function () {
  * Draws the player ship
  */
 SI.Game.prototype.drawPlayerShip = function () {
-	this.xpainter.lineWidth = SI.Sizes.lineWidth;
-	this.xpainter.fillStyle = SI.Colors.player;
 	this.playerShip.draw(this.xpainter);
 }
 /*

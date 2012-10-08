@@ -37,7 +37,8 @@ SI.Game.prototype.initializeGame = function () {
 	this.playerShip = new SI.SpaceShip(SI.Sizes.width / 2 - SI.Sizes.playerShipWidth / 2,
 			SI.Sizes.bottomMargin - SI.Sizes.playerShipHeight,
 			SI.Sizes.playerShipWidth,
-			SI.Sizes.playerShipHeight);
+			SI.Sizes.playerShipHeight,
+			SI.Images.playerImg);
 	this.rockets = [];
 	this.enemyShips = this.createEnemyShips(SI.Sizes.enemyInRow, SI.Sizes.enemyInColumn);
 	this.detector = new SI.CDetection();
@@ -73,7 +74,8 @@ SI.Game.prototype.createEnemyShips = function (rows, coulmns) {
 		for(var j = 0; j < coulmns; j += 1) {
 				row.push(new SI.SpaceShip(xPos, yPos,
 							SI.Sizes.enemyWidth,
-							SI.Sizes.enemyHeight));
+							SI.Sizes.enemyHeight,
+							SI.Images.enemyImg));
 				xPos += SI.Sizes.enemyWidth + SI.Sizes.enemySpacing;
 		}
 		yPos += SI.Sizes.enemyHeight + SI.Sizes.enemySpacing;

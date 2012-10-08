@@ -26,7 +26,7 @@ SI.Sizes = {
 	width:	800,
 
 	playerShipWidth: 50,
-	playerShipHeight: 20,
+	playerShipHeight: 10,
 	playerStep: 20,
 
 	enemyInRow: 6,
@@ -50,15 +50,23 @@ SI.Sizes = {
 	SI.Sizes.bottomMargin = SI.Sizes.height - 60,
 	SI.Sizes.rightMargin = SI.Sizes.width - 0,
 
+SI.Images = {};
+
+SI.Images.playerImg = new Image();
+SI.Images.playerImg.src = 'images/player.png';
+
+SI.Images.enemyImg = new Image()
+SI.Images.enemyImg.src = 'images/enemy.png';
+
 /*
  * Colors for fillStyle and strokeStyle
  */
 SI.Colors = {
-	player: "#0f0",
-	enemy: "#f30",
-	rocket: "#07f",
-	ground: "green",
-	background: "black"
+	player: '#0f0',
+	enemy: '#f30',
+	rocket: '#07f',
+	ground: 'green',
+	background: 'black'
 }
 /*
  * Directions for rockets and spaceships
