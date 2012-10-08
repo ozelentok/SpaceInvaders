@@ -40,12 +40,15 @@ SI.Game.prototype.initializeGame = function () {
 			SI.Sizes.playerShipWidth,
 			SI.Sizes.playerShipHeight,
 			SI.Images.playerImg);
-	this.rockets = [];
+	this.rocketsPlayer = [];
+	this.rocketsEnemies = [];
 	this.enemyShips = this.createEnemyShips(SI.Sizes.enemyInRow, SI.Sizes.enemyInColumn);
 	this.detector = new SI.CDetection();
-	// clearance to fire again
+	// clearance to fire again (for player)
 	this.okToFire = true;
 
+	// clearance to fire again (for enemies), if equals SI.Sizes.turnsUntilFire, an enemy fires
+	this.turnToFire = 0;
 	this.points = 0;
 
 	this.lives = 3;
@@ -55,7 +58,9 @@ SI.Game.prototype.initializeGame = function () {
 		self.moveAllElements();
 		self.deleteExplodedRockets();
 		self.deleteExplodedEnemyShips();
+		self.checkPlayerStatus();
 		self.drawAllElements();
+		self.launchEnemyRocket();
 		self.freeRocketLauncher();
 		self.checkEndGame();
 	}, SI.Sizes.MSPF);
@@ -67,7 +72,7 @@ SI.Game.prototype.checkEndGame = function () {
 		clearInterval(this.clock);
 		this.popUpMessage("You Win!");
 	}
-	else if(this.lives == -1) {
+	else if(this.lives == 0) {
 		clearInterval(this.clock);
 		this.popUpMessage("You Lost!");
 	}
@@ -117,16 +122,23 @@ SI.Game.prototype.freeRocketLauncher = function () {
  */
 SI.Game.prototype.deleteExplodedRockets = function () {
 	var aliveRockets = [];
-	for (var i = 0; i < this.rockets.length; i += 1) {
-		if(!this.rockets[i].exploded) {
-			aliveRockets.push(this.rockets[i]);
+	for (var i = 0; i < this.rocketsPlayer.length; i += 1) {
+		if(!this.rocketsPlayer[i].exploded) {
+			aliveRockets.push(this.rocketsPlayer[i]);
 		}
 	}
-	this.rockets = aliveRockets;
+	this.rocketsPlayer = aliveRockets;
+	aliveRockets = [];
+	for (var i = 0; i < this.rocketsEnemies.length; i += 1) {
+		if(!this.rocketsEnemies[i].exploded) {
+			aliveRockets.push(this.rocketsEnemies[i]);
+		}
+	}
+	this.rocketsEnemies = aliveRockets;
 }
 
 SI.Game.prototype.deleteExplodedEnemyShips = function () {
-	var toDelete = this.detector.detect(this.rockets, this.enemyShips.ships);
+	var toDelete = this.detector.detectHitEnemies(this.rocketsPlayer, this.enemyShips.ships);
 	// deletes a single ship every time
 	for (var i = 0; i < toDelete.length; i += 1) {
 		this.enemyShips.ships[toDelete[i].row].splice(toDelete[i].col, 1);
@@ -143,6 +155,25 @@ SI.Game.prototype.deleteExplodedEnemyShips = function () {
 		}
 	}
 }
+SI.Game.prototype.checkPlayerStatus = function () {
+	var playerHit = this.detector.detectHitPlayer(this.rocketsEnemies, this.playerShip);
+	if(playerHit) {
+		this.lives -= 1;
+	}
+}
+SI.Game.prototype.launchEnemyRocket = function () {
+	if(this.turnToFire == SI.Sizes.turnUntilFire) {
+		var row = this.enemyShips.ships.length - 1;
+		var last = Math.floor(Math.random() * this.enemyShips.ships[row].length);
+		var ship = this.enemyShips.ships[row][last]
+		this.rocketsEnemies.push(new SI.Rocket(ship.x + ship.width / 2,
+					ship.y + ship.height / 2, SI.Directions.Down));
+		this.turnToFire = 0;
+	}
+	else {
+		this.turnToFire += 1;
+	}
+}
 
 /*
  * Chnage the current key pressed
@@ -150,9 +181,9 @@ SI.Game.prototype.deleteExplodedEnemyShips = function () {
 SI.Game.prototype.onKeyDown = function (e) {
 	this.currentKey = e.which;
 	if(this.currentKey == SI.Keys.Up && this.okToFire &&
-			this.rockets.length < SI.Sizes.maxRockets) {
+			this.rocketsPlayer.length < SI.Sizes.maxRockets) {
 		this.lockRocketLauncher();
-		this.rockets.push(new SI.Rocket(this.playerShip.x + this.playerShip.width / 2,
+		this.rocketsPlayer.push(new SI.Rocket(this.playerShip.x + this.playerShip.width / 2,
 					this.playerShip.y, SI.Directions.Up));
 	}
 }

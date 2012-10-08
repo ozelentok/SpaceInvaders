@@ -8,13 +8,18 @@ SI.Game = function() {
 	// current pressed key
 	this.currentKey;
 	// rockets on the game grid
-	this.rockets;
+	// rockets launched by player
+	this.rocketsPlayer;
+	// rockets launched by enemies
+	this.rocketsEnemies;
 	// player ship
 	this.playerShip;
 	// enemy ships
 	this.enemyShips;
-	// clearance to fire again
+	// clearance to fire again (player)
 	this.okToFire;
+	// clearance to fire again (enemies)
+	this.turnToFire;
 	// collison detecor
 	this.detector;
 	// amount of points
@@ -51,7 +56,8 @@ SI.Sizes = {
 	pointModifer: 5,
 	//miliseconds per frame
 	MSPF: 1000 / 30,
-	
+
+	turnUntilFire: 25,
 	font: '25px Arial',
 	messageFont: '100px Arial',
 

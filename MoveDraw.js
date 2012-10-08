@@ -57,8 +57,11 @@ SI.Game.prototype.moveEnemyShips = function () {
  * Moves the rockets
  */
 SI.Game.prototype.moveRockets = function () {
-	for (var i = 0; i < this.rockets.length; i += 1) {
-		this.rockets[i].move(SI.Sizes.rocketStep);
+	for (var i = 0; i < this.rocketsPlayer.length; i += 1) {
+		this.rocketsPlayer[i].move(SI.Sizes.rocketStep);
+	}
+	for (var i = 0; i < this.rocketsEnemies.length; i += 1) {
+		this.rocketsEnemies[i].move(SI.Sizes.rocketStep);
 	}
 }
 
@@ -106,8 +109,11 @@ SI.Game.prototype.drawEnemyShips = function () {
 SI.Game.prototype.drawRockets = function () {
 	this.xpainter.strokeStyle = SI.Colors.rocket;
 	this.xpainter.lineWidth = SI.Sizes.rocketWidth;
-	for (var i = 0; i < this.rockets.length; i += 1) {
-		this.rockets[i].draw(this.xpainter);
+	for (var i = 0; i < this.rocketsPlayer.length; i += 1) {
+		this.rocketsPlayer[i].draw(this.xpainter);
+	}
+	for (var i = 0; i < this.rocketsEnemies.length; i += 1) {
+		this.rocketsEnemies[i].draw(this.xpainter);
 	}
 }
 

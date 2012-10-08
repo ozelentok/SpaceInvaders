@@ -8,7 +8,7 @@ SI.CDetection = function () {
  * ships
  * Returns a lists of {row:ship row, col:ship col} in order to delete them;
  */
-SI.CDetection.prototype.detect = function (rockets, ships) {
+SI.CDetection.prototype.detectHitEnemies = function (rockets, ships) {
 	var toDelete = [];
 	for (var i = 0; i < rockets.length; i += 1) {
 		var found = false;
@@ -38,9 +38,18 @@ SI.CDetection.prototype.detect = function (rockets, ships) {
 	}
 	return toDelete;
 }
+SI.CDetection.prototype.detectHitPlayer = function(rockets, player) {
+	for (var i = 0; i < rockets.length; i += 1) {
+		if(this.isRocketInRow(rockets[i], player) && this.isRocketInColumn(rockets[i], player)) {
+			rockets[i].exploded = true;
+			return true;
+		}
+	}
+	return false;
+}
 SI.CDetection.prototype.isRocketInRow = function (rocket, ship) {
 	var rocketTop = rocket.y + SI.Sizes.rocketHeight;
-	var shipTop = ship.y + SI.Sizes.enemyHeight;
+	var shipTop = ship.y + ship.height;
 	if((rocketTop > shipTop) && (rocket.y < shipTop)) {
 		return true;
 	}
@@ -55,7 +64,7 @@ SI.CDetection.prototype.isRocketInRow = function (rocket, ship) {
 SI.CDetection.prototype.isRocketInColumn = function (rocket, ship) {
 	var rocketRight = rocket.x + SI.Sizes.rocketWidth / 2;
 	var rocketLeft = rocket.x - SI.Sizes.rocketWidth / 2;
-	var shipRight = ship.x + SI.Sizes.enemyWidth;
+	var shipRight = ship.x + ship.width;
 	if((rocketRight > shipRight) && (rocketLeft < shipRight)) {
 		return true;
 	}
