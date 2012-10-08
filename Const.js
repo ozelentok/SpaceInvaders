@@ -90,7 +90,7 @@ SI.Images.rocketUpImg = new Image();
 SI.Images.rocketUpImg.src = 'images/rocketUp.png';
 
 SI.Images.rocketDownImg = new Image();
-SI.Images.rocketDownImg.src = 'images/rocketUp.png';
+SI.Images.rocketDownImg.src = 'images/rocketDown.png';
 
 /*
  * Colors for fillStyle and strokeStyle
