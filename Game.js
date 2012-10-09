@@ -53,6 +53,8 @@ SI.Game.prototype.initializeGame = function () {
 	this.lives = 3;
 	this.enemyPhase = 0;
 	this.frames = 0;
+	
+	this.enemySpeed = SI.Sizes.enemyStepHort;
 
 	var self = this;
 	this.clock = setInterval(function () {	
@@ -150,6 +152,7 @@ SI.Game.prototype.deleteExplodedEnemyShips = function () {
 	while (i < this.enemies.ships.length) {
 		if(this.enemies.ships[i].length == 0) {
 			this.enemies.ships.splice(i, 1);
+			this.enemySpeed += SI.Sizes.enemyStepHort;
 		}
 		else {
 			i += 1;
@@ -164,7 +167,7 @@ SI.Game.prototype.checkPlayerStatus = function () {
 }
 SI.Game.prototype.launchEnemyRocket = function () {
 	if(this.turnToFire == SI.Sizes.turnUntilFire) {
-		var row = this.enemies.ships.length - 1;
+		var row = Math.floor(Math.random() * this.enemies.ships.length);
 		var last = Math.floor(Math.random() * this.enemies.ships[row].length);
 		var ship = this.enemies.ships[row][last]
 		this.rocketsEnemies.push(new SI.Rocket(ship.x + ship.width / 2,

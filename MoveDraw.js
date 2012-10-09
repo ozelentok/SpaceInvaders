@@ -45,10 +45,10 @@ SI.Game.prototype.moveEnemyShips = function () {
 		}
 		for (var j = 0; j < this.enemies.ships[i].length; j += 1) {
 			if(dropDown) {
-				this.enemies.ships[i][j].move(this.enemies.directions[i] * SI.Sizes.enemyStepVert, SI.Sizes.enemyStepVert);
+				this.enemies.ships[i][j].move(this.enemies.directions[i] * this.enemySpeed, SI.Sizes.enemyStepVert);
 			}
 			else {
-				this.enemies.ships[i][j].move(this.enemies.directions[i] * SI.Sizes.enemyStepHort, 0);
+				this.enemies.ships[i][j].move(this.enemies.directions[i] * this.enemySpeed, 0);
 			}
 		}
 	}

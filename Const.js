@@ -30,12 +30,13 @@ SI.Game = function() {
 	this.enemyPhase;
 	// counts frames
 	this.frames;
+
 }
 /*
  * Sizes for drawing and computing
  */
 SI.Sizes = {
-	height:	900,
+	height:	800,
 	width:	800,
 
 	playerShipWidth: 40,
@@ -43,10 +44,10 @@ SI.Sizes = {
 	playerStep: 20,
 
 	enemyInRow: 6,
-	enemyInColumn: 10,
+	enemyInColumn: 11,
 	enemyWidth: 40,
 	enemyHeight: 30,
-	enemyStepHort: 4,
+	enemyStepHort: 3,
 	enemyStepVert: 10,
 	enemySpacing: 15,
 
