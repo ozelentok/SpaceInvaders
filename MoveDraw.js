@@ -76,11 +76,13 @@ SI.Game.prototype.drawAllElements = function () {
 	if(this.frames % 5 == 0) {
 		this.ChangeEnemySpritePhase(this.enemies.ships);
 	}
+	this.ChangeExplosionPhase(this.explosions);
 	this.frames += 1;
 	this.drawGrid();
 	this.drawGround();
 	this.drawPlayerShip();
 	this.drawEnemyShips();
+	this.drawExplosions();
 	this.drawRockets();
 	this.drawStatus();
 }
@@ -111,8 +113,6 @@ SI.Game.prototype.drawEnemyShips = function () {
  * Draws the rockets
  */
 SI.Game.prototype.drawRockets = function () {
-	this.xpainter.strokeStyle = SI.Colors.rocket;
-	this.xpainter.lineWidth = SI.Sizes.rocketWidth;
 	for (var i = 0; i < this.rocketsPlayer.length; i += 1) {
 		this.rocketsPlayer[i].draw(this.xpainter);
 	}
@@ -120,7 +120,14 @@ SI.Game.prototype.drawRockets = function () {
 		this.rocketsEnemies[i].draw(this.xpainter);
 	}
 }
-
+/*
+ * Draws the explosions
+ */
+SI.Game.prototype.drawExplosions = function () {
+	for (var i = 0; i < this.explosions.length; i += 1) {
+		this.explosions[i].draw(this.xpainter);
+	}
+}
 /*
  * Draws the ground
  */
@@ -174,6 +181,29 @@ SI.Game.prototype.ChangeEnemySpritePhase = function (ships) {
 	for (var i = 0; i < ships.length; i += 1) {
 		for (var j = 0; j < ships[i].length; j += 1) {
 			ships[i][j].imgX = newImgX;
+		}
+	}
+}
+SI.Game.prototype.ChangeExplosionPhase = function (explosions) {
+	for (var i = 0; i < explosions.length; i += 1) {
+		// explosion expanding
+		if(explosions[i].expanding) {
+			if(explosions[i].imgX == SI.Images.explosionImg.phases * SI.Sizes.explosionWidth) {
+				explosions[i].expanding = false;
+			}
+			else {
+				explosions[i].imgX += SI.Sizes.explosionWidth;
+			}
+		}
+		//explosion disappearing
+		else {
+			// last sprite img
+			if(explosions[i].imgX == 0) {
+				explosions[i].done = true;
+			}
+			else {
+				explosions[i].imgX -= SI.Sizes.explosionWidth;
+			}
 		}
 	}
 }

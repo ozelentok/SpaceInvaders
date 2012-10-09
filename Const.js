@@ -55,12 +55,15 @@ SI.Sizes = {
 	rocketWidth: 6,
 	rocketStep: 20,
 
+	explosionWidth: 40,
+	explosionHeight: 40,
+
 	lineWidth: 1,
 	maxRockets: 8,
 
 	pointModifer: 5,
 	//miliseconds per frame
-	MSPF: 1000 / 24,
+	MSPF: 1000 / 30,
 
 	waitSprite: 5, 
 	
@@ -98,6 +101,10 @@ SI.Images.enemyImg.phases = 2 - 1;
 
 SI.Images.rocketImg = new Image();
 SI.Images.rocketImg.src = 'images/rocket.png';
+
+SI.Images.explosionImg = new Image();
+SI.Images.explosionImg.src = 'images/explosion.png';
+SI.Images.explosionImg.phases = 7 - 1;
 
 /*
  * Colors for fillStyle and strokeStyle

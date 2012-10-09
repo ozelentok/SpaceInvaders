@@ -1,3 +1,4 @@
+//===================Spaceship ==============================
 /*
  * Constructs a new SpaceShip
  * x and y refer to the top-left
@@ -48,6 +49,7 @@ SI.SpaceShip.prototype.draw = function (painter) {
 	painter.drawImage(this.img, this.imgX, 0, this.width, this.height, this.x, this.y, this.width, this.height);
 	
 }
+//===================Rockets ==============================
 /*
  * Constructs a new rocket 
  * Parameters
@@ -72,10 +74,31 @@ SI.Rocket = function (x, y, direction, img) {
  */
 SI.Rocket.prototype.move = function (deltaY) {
 	this.y += this.direction * deltaY;
-	if(this.y <= 0 || this.y >= SI.Sizes.bottomMargin) {
+	if(this.y <= 0 || this.y + SI.Sizes.rocketHeight >= SI.Sizes.bottomMargin) {
 		this.exploded = true;
 	}
 }
 SI.Rocket.prototype.draw = function (painter) {
 	painter.drawImage(this.img, this.x, this.y, SI.Sizes.rocketWidth, SI.Sizes.rocketHeight); 
+}
+//===================Explosions ==============================
+/*
+ * Constructs a new Explosion 
+ * Parameters
+ * x - explosion position on x-axis
+ * y - explosion position on y-axis
+ * img - image to use for explosion
+ */
+SI.Explosion = function (x, y, img) {
+	this.x = x;
+	this.y = y;
+	this.img = img;
+	this.imgX = 0;
+	this.expanding = true;
+	this.done = false;
+}
+
+SI.Explosion.prototype.draw = function (painter) {
+	painter.drawImage(this.img, this.imgX, 0, SI.Sizes.explosionWidth, SI.Sizes.explosionHeight,
+			this.x, this.y, SI.Sizes.explosionWidth, SI.Sizes.explosionHeight);
 }
