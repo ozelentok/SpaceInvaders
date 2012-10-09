@@ -14,6 +14,7 @@ SI.SpaceShip = function (x, y, width, height, img) {
 	this.width = width;
 	this.height = height;
 	this.img = img
+	this.imgX = 0;
 }
 /*
  * Moves spaceship by delta from it's current position
@@ -44,7 +45,8 @@ SI.SpaceShip.prototype.move = function (deltaX, deltaY) {
  * painter - canvas context(painter)
  */
 SI.SpaceShip.prototype.draw = function (painter) {
-	painter.drawImage(this.img, this.x, this.y, this.width, this.height);
+	painter.drawImage(this.img, this.imgX, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+	
 }
 /*
  * Constructs a new rocket 

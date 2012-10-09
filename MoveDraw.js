@@ -29,26 +29,26 @@ SI.Game.prototype.movePlayerShip = function () {
  */
 SI.Game.prototype.moveEnemyShips = function () {
 	var dropDown = false;
-	var lastRow = this.enemyShips.ships.length - 1;
+	var lastRow = this.enemies.ships.length - 1;
 	for (var i = lastRow; i >= 0; i -= 1) {
-		if(this.enemyShips.ships[i][0].x <= SI.Sizes.leftMargin) {
-			this.enemyShips.directions[i] = SI.Directions.Right;
+		if(this.enemies.ships[i][0].x <= SI.Sizes.leftMargin) {
+			this.enemies.directions[i] = SI.Directions.Right;
 			if(i == lastRow) {
 				dropDown = true;
 			}
 		}
-		else if(this.enemyShips.ships[i][this.enemyShips.ships[i].length - 1].x + this.enemyShips.ships[i][0].width >= SI.Sizes.rightMargin) {
-			this.enemyShips.directions[i] = SI.Directions.Left;
+		else if(this.enemies.ships[i][this.enemies.ships[i].length - 1].x + this.enemies.ships[i][0].width >= SI.Sizes.rightMargin) {
+			this.enemies.directions[i] = SI.Directions.Left;
 			if(i == lastRow) {
 				dropDown = true;
 			}
 		}
-		for (var j = 0; j < this.enemyShips.ships[i].length; j += 1) {
+		for (var j = 0; j < this.enemies.ships[i].length; j += 1) {
 			if(dropDown) {
-				this.enemyShips.ships[i][j].move(this.enemyShips.directions[i] * SI.Sizes.enemyStepVert, SI.Sizes.enemyStepVert);
+				this.enemies.ships[i][j].move(this.enemies.directions[i] * SI.Sizes.enemyStepVert, SI.Sizes.enemyStepVert);
 			}
 			else {
-				this.enemyShips.ships[i][j].move(this.enemyShips.directions[i] * SI.Sizes.enemyStepHort, 0);
+				this.enemies.ships[i][j].move(this.enemies.directions[i] * SI.Sizes.enemyStepHort, 0);
 			}
 		}
 	}
@@ -73,6 +73,10 @@ SI.Game.prototype.moveRockets = function () {
  * Game grid, player ship, and enemy ships and rockets
  */
 SI.Game.prototype.drawAllElements = function () {
+	if(this.frames % 5 == 0) {
+		this.ChangeEnemySpritePhase(this.enemies.ships);
+	}
+	this.frames += 1;
 	this.drawGrid();
 	this.drawGround();
 	this.drawPlayerShip();
@@ -97,9 +101,9 @@ SI.Game.prototype.drawPlayerShip = function () {
  * Draws the enemy ships
  */
 SI.Game.prototype.drawEnemyShips = function () {
-	for (var i = 0; i < this.enemyShips.ships.length; i += 1) {
-		for (var j = 0; j < this.enemyShips.ships[i].length; j += 1) {
-			this.enemyShips.ships[i][j].draw(this.xpainter);
+	for (var i = 0; i < this.enemies.ships.length; i += 1) {
+		for (var j = 0; j < this.enemies.ships[i].length; j += 1) {
+			this.enemies.ships[i][j].draw(this.xpainter);
 		}
 	}
 }
@@ -154,3 +158,22 @@ SI.Game.prototype.popUpMessage = function (message) {
 			(SI.Sizes.popUpY + SI.Sizes.popUpHeight) / 2);
 }
 
+
+
+//===================Sprite Change==============================
+SI.Game.prototype.ChangeEnemySpritePhase = function (ships) {
+	var newImgX;
+	if(this.enemyPhase == SI.Images.enemyImg.phases) {
+		newImgX = 0;
+		this.enemyPhase = 0;
+	}
+	else {
+		newImgX = (this.enemyPhase + 1) * SI.Sizes.enemyWidth;
+		this.enemyPhase += 1;
+	}
+	for (var i = 0; i < ships.length; i += 1) {
+		for (var j = 0; j < ships[i].length; j += 1) {
+			ships[i][j].imgX = newImgX;
+		}
+	}
+}

@@ -15,7 +15,7 @@ SI.Game = function() {
 	// player ship
 	this.playerShip;
 	// enemy ships
-	this.enemyShips;
+	this.enemies;
 	// clearance to fire again (player)
 	this.okToFire;
 	// clearance to fire again (enemies)
@@ -26,6 +26,10 @@ SI.Game = function() {
 	this.points
 	// lives left
 	this.lives;
+	// current enemy sprite phase
+	this.enemyPhase;
+	// counts frames
+	this.frames;
 }
 /*
  * Sizes for drawing and computing
@@ -42,7 +46,7 @@ SI.Sizes = {
 	enemyInColumn: 10,
 	enemyWidth: 40,
 	enemyHeight: 30,
-	enemyStepHort: 5,
+	enemyStepHort: 4,
 	enemyStepVert: 10,
 	enemySpacing: 15,
 
@@ -55,8 +59,10 @@ SI.Sizes = {
 
 	pointModifer: 5,
 	//miliseconds per frame
-	MSPF: 1000 / 30,
+	MSPF: 1000 / 24,
 
+	waitSprite: 5, 
+	
 	turnUntilFire: 25,
 	font: '25px Arial',
 	messageFont: '100px Arial',
@@ -80,11 +86,14 @@ SI.Images = {};
 SI.Images.backgroundImg = new Image();
 SI.Images.backgroundImg.src = 'images/background.png';
 
+
 SI.Images.playerImg = new Image();
 SI.Images.playerImg.src = 'images/player.png';
+SI.Images.playerImg.phases = 1 - 1;
 
 SI.Images.enemyImg = new Image();
 SI.Images.enemyImg.src = 'images/enemy.png';
+SI.Images.enemyImg.phases = 2 - 1;
 
 SI.Images.rocketImg = new Image();
 SI.Images.rocketImg.src = 'images/rocket.png';

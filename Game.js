@@ -42,7 +42,7 @@ SI.Game.prototype.initializeGame = function () {
 			SI.Images.playerImg);
 	this.rocketsPlayer = [];
 	this.rocketsEnemies = [];
-	this.enemyShips = this.createEnemyShips(SI.Sizes.enemyInRow, SI.Sizes.enemyInColumn);
+	this.enemies = this.createEnemyShips(SI.Sizes.enemyInRow, SI.Sizes.enemyInColumn);
 	this.detector = new SI.CDetection();
 	// clearance to fire again (for player)
 	this.okToFire = true;
@@ -50,8 +50,9 @@ SI.Game.prototype.initializeGame = function () {
 	// clearance to fire again (for enemies), if equals SI.Sizes.turnsUntilFire, an enemy fires
 	this.turnToFire = 0;
 	this.points = 0;
-
 	this.lives = 3;
+	this.enemyPhase = 0;
+	this.frames = 0;
 
 	var self = this;
 	this.clock = setInterval(function () {	
@@ -68,7 +69,7 @@ SI.Game.prototype.initializeGame = function () {
 }
 
 SI.Game.prototype.checkEndGame = function () {
-	if(this.enemyShips.ships.length == 0) {
+	if(this.enemies.ships.length == 0) {
 		clearInterval(this.clock);
 		this.popUpMessage("You Win!");
 	}
@@ -138,17 +139,17 @@ SI.Game.prototype.deleteExplodedRockets = function () {
 }
 
 SI.Game.prototype.deleteExplodedEnemyShips = function () {
-	var toDelete = this.detector.detectHitEnemies(this.rocketsPlayer, this.enemyShips.ships);
+	var toDelete = this.detector.detectHitEnemies(this.rocketsPlayer, this.enemies.ships);
 	// deletes a single ship every time
 	for (var i = 0; i < toDelete.length; i += 1) {
-		this.enemyShips.ships[toDelete[i].row].splice(toDelete[i].col, 1);
+		this.enemies.ships[toDelete[i].row].splice(toDelete[i].col, 1);
 		this.points += SI.Sizes.pointModifer;
 	}
 	// if a row is empty, remove it
 	var i = 0;
-	while (i < this.enemyShips.ships.length) {
-		if(this.enemyShips.ships[i].length == 0) {
-			this.enemyShips.ships.splice(i, 1);
+	while (i < this.enemies.ships.length) {
+		if(this.enemies.ships[i].length == 0) {
+			this.enemies.ships.splice(i, 1);
 		}
 		else {
 			i += 1;
@@ -163,9 +164,9 @@ SI.Game.prototype.checkPlayerStatus = function () {
 }
 SI.Game.prototype.launchEnemyRocket = function () {
 	if(this.turnToFire == SI.Sizes.turnUntilFire) {
-		var row = this.enemyShips.ships.length - 1;
-		var last = Math.floor(Math.random() * this.enemyShips.ships[row].length);
-		var ship = this.enemyShips.ships[row][last]
+		var row = this.enemies.ships.length - 1;
+		var last = Math.floor(Math.random() * this.enemies.ships[row].length);
+		var ship = this.enemies.ships[row][last]
 		this.rocketsEnemies.push(new SI.Rocket(ship.x + ship.width / 2,
 					ship.y + ship.height / 2, SI.Directions.Down, SI.Images.rocketImg));
 		this.turnToFire = 0;
