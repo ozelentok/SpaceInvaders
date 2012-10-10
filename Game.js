@@ -76,7 +76,7 @@ SI.Game.prototype.checkEndGame = function () {
 		clearInterval(this.clock);
 		this.popUpMessage("You Win!");
 	}
-	else if(this.lives == 0) {
+	else if(this.lives == 0 || this.enemies.ships[this.enemies.ships.length - 1][0].y >= SI.Sizes.bottomMargin - SI.Sizes.enemyHeight) {
 		clearInterval(this.clock);
 		this.popUpMessage("You Lost!");
 	}

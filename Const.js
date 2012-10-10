@@ -63,7 +63,7 @@ SI.Sizes = {
 
 	pointModifer: 5,
 	//miliseconds per frame
-	MSPF: 1000 / 30,
+	MSPF: 1000 / 100,
 
 	waitSprite: 5, 
 	
