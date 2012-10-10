@@ -131,7 +131,9 @@ SI.Game.prototype.deleteExplodedRockets = function () {
 			aliveRockets.push(this.rocketsPlayer[i]);
 		}
 		else {
-			this.explosions.push(new SI.Explosion(this.rocketsPlayer[i].x, this.rocketsPlayer[i].y, SI.Images.explosionImg));
+			this.explosions.push(new SI.Explosion(this.rocketsPlayer[i].x - SI.Sizes.explosionWidth / 2,
+						this.rocketsPlayer[i].y,
+						SI.Images.explosionImg));
 		}
 	}
 	this.rocketsPlayer = aliveRockets;
@@ -141,7 +143,9 @@ SI.Game.prototype.deleteExplodedRockets = function () {
 			aliveRockets.push(this.rocketsEnemies[i]);
 		}
 		else {
-			this.explosions.push(new SI.Explosion(this.rocketsEnemies[i].x, this.rocketsEnemies[i].y, SI.Images.explosionImg));
+			this.explosions.push(new SI.Explosion(this.rocketsEnemies[i].x - SI.Sizes.explosionWidth / 2,
+						this.rocketsEnemies[i].y  - SI.Sizes.explosionHeight / 2,
+						SI.Images.explosionImg));
 		}
 	}
 	this.rocketsEnemies = aliveRockets;
