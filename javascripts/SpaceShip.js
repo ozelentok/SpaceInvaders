@@ -1,22 +1,32 @@
 //===================Spaceship ==============================
 /*
  * Constructs a new SpaceShip
- * x and y refer to the top-left
- * Parameters
  * x - spaceship position on x-axis
  * y - spaceship position on y-axis
  * width - spaceship width
  * height - spaceship height
  * img - spaceship drawing
  */
-SI.SpaceShip = function (x, y, width, height, img) {
-	this.x = x;
-	this.y = y;
-	this.width = width;
-	this.height = height;
-	this.img = img
-	this.imgX = 0;
+
+SI.SpaceShip = function (options) {
+	var defaultOptions = {
+		x: 0,
+		y: 0,
+		width: 0,
+		height: 0,
+		img: null,
+		imgX: 0, 
+	}
+	for (var key in defaultOptions) {
+		if(options.hasOwnProperty(key)) {
+			this[key] = options[key];
+		}
+		else {
+			this[key] = defaultOptions[key];
+		}
+	}
 }
+
 /*
  * Moves spaceship by delta from it's current position
  * Parameters
@@ -52,18 +62,27 @@ SI.SpaceShip.prototype.draw = function (painter) {
 //===================Rockets ==============================
 /*
  * Constructs a new rocket 
- * Parameters
  * x - rocket position on x-axis
  * y - rocket position on y-axis
+ * direction - rocket going up or down
  */
-SI.Rocket = function (x, y, direction, img) {
-	this.x = x;
-	this.y = y;
-	this.direction = direction;
-	// current status of rocket
-	// used for deletion of rocket
-	this.exploded = false;
-	this.img = img;
+SI.Rocket = function (options) {
+
+	var defaultOptions = {
+		x: 0,
+		y: 0,
+		direction: null,
+		img: SI.Images.rocketImg,
+		exploded: false
+	}
+	for (var key in defaultOptions) {
+		if(options.hasOwnProperty(key)) {
+			this[key] = options[key];
+		}
+		else {
+			this[key] = defaultOptions[key];
+		}
+	}
 }
 /*
  * Moves rocket by delta from it's current position
@@ -84,18 +103,27 @@ SI.Rocket.prototype.draw = function (painter) {
 //===================Explosions ==============================
 /*
  * Constructs a new Explosion 
- * Parameters
  * x - explosion position on x-axis
  * y - explosion position on y-axis
  * img - image to use for explosion
  */
-SI.Explosion = function (x, y, img) {
-	this.x = x;
-	this.y = y;
-	this.img = img;
-	this.imgX = 0;
-	this.expanding = true;
-	this.done = false;
+SI.Explosion = function (options) {
+	var defaultOptions = {
+		x: 0,
+		y: 0,
+		img: SI.Images.explosionImg,
+		imgX: 0,
+		expanding: true,
+		done: false
+	}
+	for (var key in defaultOptions) {
+		if(options.hasOwnProperty(key)) {
+			this[key] = options[key];
+		}
+		else {
+			this[key] = defaultOptions[key];
+		}
+	}
 }
 
 SI.Explosion.prototype.draw = function (painter) {

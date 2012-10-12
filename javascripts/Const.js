@@ -1,38 +1,5 @@
 var SI = {};
 /*
- * Constructs a new Game
- */
-SI.Game = function() {
-	// canvas context
-	this.xpainter;
-	// current pressed key
-	this.currentKey;
-	// rockets on the game grid
-	// rockets launched by player
-	this.rocketsPlayer;
-	// rockets launched by enemies
-	this.rocketsEnemies;
-	// player ship
-	this.playerShip;
-	// enemy ships
-	this.enemies;
-	// clearance to fire again (player)
-	this.okToFire;
-	// clearance to fire again (enemies)
-	this.turnToFire;
-	// collison detecor
-	this.detector;
-	// amount of points
-	this.points
-	// lives left
-	this.lives;
-	// current enemy sprite phase
-	this.enemyPhase;
-	// counts frames
-	this.frames;
-
-}
-/*
  * Sizes for drawing and computing
  */
 SI.Sizes = {
