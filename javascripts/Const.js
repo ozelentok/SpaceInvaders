@@ -21,8 +21,8 @@ SI.Sizes = {
 		SI.Sizes.modifier = 0.7;
 	}
 
-	SI.Sizes.enemyInRow = Math.floor(SI.Sizes.height * SI.Sizes.modifier / 100);
-	SI.Sizes.enemyInColumn = Math.floor(SI.Sizes.width * SI.Sizes.modifier / 80);
+	SI.Sizes.enemyInRow = Math.floor(SI.Sizes.height / SI.Sizes.modifier / 100);
+	SI.Sizes.enemyInColumn = Math.floor(SI.Sizes.width / SI.Sizes.modifier / 80);
 
 	SI.Sizes.playerShipWidth = 40 * SI.Sizes.modifier;
 	SI.Sizes.playerShipHeight = 20 * SI.Sizes.modifier;
