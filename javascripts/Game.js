@@ -56,17 +56,13 @@ SI.Game.prototype.attachKeyboardEvents = function() {
 
 	$(document).bind('touchmove', function (e) {
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-		if(touch.pageX <= self.ctx.canvas.width) {
-			e.preventDefault();
-			self.playerShip.setLocation(touch.pageX - self.ctx.canvas.offsetLeft);
-		}
+		e.preventDefault();
+		self.playerShip.setLocation(touch.pageX - self.ctx.canvas.offsetLeft);
 	});
 	$(document).bind('touchstart', function (e) {
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-		if(touch.pageX <= self.ctx.canvas.width && touch.pageY <= SI.Sizes.bottomMargin) {
-			e.preventDefault();
-			self.launchPlayerRocket();
-		}
+		e.preventDefault();
+		self.launchPlayerRocket();
 	});
 }
 
