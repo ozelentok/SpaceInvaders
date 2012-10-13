@@ -415,7 +415,6 @@ SI.Game.prototype.drawStatus = function () {
 }
 
 SI.Game.prototype.popUpMessage = function (message) {
-	message = SI.Sizes.width;
 	this.ctx.fillStyle = SI.Colors.popUpBackground
 	this.ctx.strokeStyle = SI.Colors.gold;
 	this.ctx.fillRect(SI.Sizes.popUpX,
@@ -429,8 +428,8 @@ SI.Game.prototype.popUpMessage = function (message) {
 	this.ctx.fillStyle = SI.Colors.text;
 	this.ctx.font = SI.Sizes.messageFont;
 	this.ctx.fillText(message,
-			(SI.Sizes.popUpX + SI.Sizes.popUpWidth - this.ctx.measureText(message).width) / 2, //+ ,
-			(SI.Sizes.popUpY + SI.Sizes.popUpHeight) / 2);
+			SI.Sizes.popUpX + (SI.Sizes.popUpWidth - this.ctx.measureText(message).width) / 2,
+			SI.Sizes.popUpY + SI.Sizes.popUpHeight / 2);
 }
 
 
