@@ -17,9 +17,10 @@ SI.Game = function() {
 	// current enemy sprite phase
 	this.enemyPhase = 0;
 	// clearance to fire again (player)
-	this.okToFire;
+	this.okToFire = true;
 	// clearance to fire again (enemies)
-	this.turnToFire;
+	this.turnToFire = 0;
+	this.gameRunning = false;
 
 
 }
@@ -60,13 +61,19 @@ SI.Game.prototype.attachKeyboardEvents = function() {
 		self.playerShip.setLocation(touch.pageX - self.ctx.canvas.offsetLeft);
 	});
 	$(document).bind('touchstart', function (e) {
-		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-		e.preventDefault();
-		self.launchPlayerRocket();
+		if(self.gameRunning) {
+			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+			e.preventDefault();
+			self.launchPlayerRocket();
+		}
+		else {
+			self.initializeGame();
+		}
 	});
 }
 
 /*
+ * Starts the game itself
  * Creates the player ship and enemy ships
  * Cleans the rocket list and allows firing
  */
@@ -94,6 +101,7 @@ SI.Game.prototype.initializeGame = function () {
 	this.enemyPhase = 0;
 	this.frames = 0;
 	this.enemySpeed = SI.Sizes.enemyStepHort;
+	this.gameRunning = true;
 
 	var self = this;
 	this.clock = setInterval(function () {	
@@ -114,10 +122,12 @@ SI.Game.prototype.checkEndGame = function () {
 	if(this.enemies.ships.length == 0) {
 		clearInterval(this.clock);
 		this.popUpMessage("You Win!");
+		this.gameRunning = false;
 	}
 	else if(this.lives == 0 || this.enemies.ships[this.enemies.ships.length - 1][0].y >= SI.Sizes.bottomMargin - SI.Sizes.enemyHeight) {
 		clearInterval(this.clock);
 		this.popUpMessage("You Lost!");
+		this.gameRunning = false;
 	}
 }
 
@@ -258,7 +268,12 @@ SI.Game.prototype.launchPlayerRocket = function () {
 SI.Game.prototype.onKeyDown = function (e) {
 	this.currentKey = e.which;
 	if(this.currentKey == SI.Keys.Up) {
-		this.launchPlayerRocket();
+		if(this.gameRunning) {
+			this.launchPlayerRocket();
+		}
+		else {
+			this.initializeGame();
+		}
 	}
 }
 SI.Game.prototype.onKeyUp = function (e) {
@@ -415,6 +430,7 @@ SI.Game.prototype.drawStatus = function () {
 }
 
 SI.Game.prototype.popUpMessage = function (message) {
+	var promptQuestion = "To start a new game, press Up arrow key or tap the screen";
 	this.ctx.fillStyle = SI.Colors.popUpBackground
 	this.ctx.strokeStyle = SI.Colors.gold;
 	this.ctx.fillRect(SI.Sizes.popUpX,
@@ -430,6 +446,10 @@ SI.Game.prototype.popUpMessage = function (message) {
 	this.ctx.fillText(message,
 			SI.Sizes.popUpX + (SI.Sizes.popUpWidth - this.ctx.measureText(message).width) / 2,
 			SI.Sizes.popUpY + SI.Sizes.popUpHeight / 2);
+	this.ctx.font = SI.Sizes.font;
+	this.ctx.fillText(promptQuestion,
+			SI.Sizes.popUpX + (SI.Sizes.popUpWidth - this.ctx.measureText(promptQuestion).width) / 2,
+			SI.Sizes.popUpY + SI.Sizes.popUpHeight / 1.5);
 }
 
 

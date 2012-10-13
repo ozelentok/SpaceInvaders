@@ -42,7 +42,7 @@ SI.Sizes = {
 	SI.Sizes.explosionWidth = 40 * SI.Sizes.modifier;
 	SI.Sizes.explosionHeight = 40 * SI.Sizes.modifier;
 
-	SI.Sizes.font =  25 * SI.Sizes.modifier + 'px Arial';
+	SI.Sizes.font = 25 * SI.Sizes.modifier + 'px Arial';
 	SI.Sizes.messageFont =  0.125 * SI.Sizes.modifier * SI.Sizes.width + 'px Arial';
 	SI.Sizes.topMargin = 0;
 	SI.Sizes.leftMargin =  10 * SI.Sizes.modifier;
