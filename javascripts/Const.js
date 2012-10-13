@@ -13,19 +13,22 @@ SI.Sizes = {
 	//miliseconds per frame
 	MSPF: 1000 / 30,
 
+	turnUntilFire: 25,
 	waitSprite: 5, 
 }
 	SI.Sizes.modifier = 1;
-	if(SI.Sizes.width <= 400) {
-		SI.Sizes.modifier = 0.8;
+	if(SI.Sizes.width <= 360 || SI.Sizes.height <= 640) {
+		SI.Sizes.modifier = 0.7;
 	}
-SI.Sizes.turnUntilFire = 25 * SI.Sizes.modifier;
+
+	SI.Sizes.enemyInRow = Math.floor(SI.Sizes.height * SI.Sizes.modifier / 100);
+	SI.Sizes.enemyInColumn = Math.floor(SI.Sizes.width * SI.Sizes.modifier / 80);
+
 	SI.Sizes.playerShipWidth = 40 * SI.Sizes.modifier;
 	SI.Sizes.playerShipHeight = 20 * SI.Sizes.modifier;
 	SI.Sizes.playerStep = 20 * SI.Sizes.modifier;
 
-	SI.Sizes.enemyInRow = 6 * SI.Sizes.modifier;
-	SI.Sizes.enemyInColumn = 6 * SI.Sizes.modifier;
+
 	SI.Sizes.enemyWidth = 40 * SI.Sizes.modifier;
 	SI.Sizes.enemyHeight = 30 * SI.Sizes.modifier;
 	SI.Sizes.enemyStepHort = 3 * SI.Sizes.modifier;
