@@ -62,16 +62,15 @@ SI.CDetection.prototype.isRocketInRow = function (rocket, ship) {
 	return false;
 }
 SI.CDetection.prototype.isRocketInColumn = function (rocket, ship) {
-	var rocketRight = rocket.x + SI.Sizes.rocketWidth / 2;
-	var rocketLeft = rocket.x - SI.Sizes.rocketWidth / 2;
+	var rocketLeft = rocket.x - SI.Sizes.rocketWidth;;
 	var shipRight = ship.x + ship.width;
-	if((rocketRight > shipRight) && (rocketLeft < shipRight)) {
+	if((rocket.x > shipRight) && (rocketLeft < shipRight)) {
 		return true;
 	}
-	if((rocketLeft < ship.x) && (rocketRight > ship.x)) {
+	if((rocketLeft < ship.x) && (rocket.x > ship.x)) {
 		return true;
 	}
-	if((rocketRight < shipRight) && (rocketLeft > ship.x)) {
+	if((rocket.x < shipRight) && (rocketLeft > ship.x)) {
 		return true;
 	}
 	return false;

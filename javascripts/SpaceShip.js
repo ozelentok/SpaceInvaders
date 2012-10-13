@@ -50,13 +50,26 @@ SI.SpaceShip.prototype.move = function (deltaX, deltaY) {
 		this.x = SI.Sizes.height - this.height;
 	}
 }
+// Moves spaceship by to a new location
+SI.SpaceShip.prototype.setLocation = function (newX) {
+	this.x = newX;
+	if(this.x <= 0) {
+		this.x = 0;
+	}
+	else if(this.x >= SI.Sizes.width - this.width) {
+		this.x = SI.Sizes.width - this.width;
+	}
+
+
+}
 /*
  * Draws the spaceship
  * Parameters
  * painter - canvas context(painter)
  */
 SI.SpaceShip.prototype.draw = function (painter) {
-	painter.drawImage(this.img, this.imgX, 0, this.width, this.height, this.x, this.y, this.width, this.height);
+	painter.drawImage(this.img, this.imgX, 0, this.img.width, this.img.height,
+			this.x, this.y, this.width, this.height);
 	
 }
 //===================Rockets ==============================
@@ -127,6 +140,6 @@ SI.Explosion = function (options) {
 }
 
 SI.Explosion.prototype.draw = function (painter) {
-	painter.drawImage(this.img, this.imgX, 0, SI.Sizes.explosionWidth, SI.Sizes.explosionHeight,
+	painter.drawImage(this.img, this.imgX, 0, this.img.width, this.img.height,
 			this.x, this.y, SI.Sizes.explosionWidth, SI.Sizes.explosionHeight);
 }

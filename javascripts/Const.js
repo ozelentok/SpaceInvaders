@@ -3,27 +3,8 @@ var SI = {};
  * Sizes for drawing and computing
  */
 SI.Sizes = {
-	height:	800,
-	width:	800,
-
-	playerShipWidth: 40,
-	playerShipHeight: 20,
-	playerStep: 20,
-
-	enemyInRow: 6,
-	enemyInColumn: 11,
-	enemyWidth: 40,
-	enemyHeight: 30,
-	enemyStepHort: 3,
-	enemyStepVert: 10,
-	enemySpacing: 15,
-
-	rocketHeight: 20,
-	rocketWidth: 6,
-	rocketStep: 20,
-
-	explosionWidth: 40,
-	explosionHeight: 40,
+	width: $(window).width(),
+	height: $(window).height(),
 
 	lineWidth: 1,
 	maxRockets: 8,
@@ -33,24 +14,45 @@ SI.Sizes = {
 	MSPF: 1000 / 30,
 
 	waitSprite: 5, 
-	
-	turnUntilFire: 25,
-	font: '25px Arial',
-	messageFont: '100px Arial',
-
 }
+	SI.Sizes.modifier = 1;
+	if(SI.Sizes.width <= 400) {
+		SI.Sizes.modifier = 0.8;
+	}
+SI.Sizes.turnUntilFire = 25 * SI.Sizes.modifier;
+	SI.Sizes.playerShipWidth = 40 * SI.Sizes.modifier;
+	SI.Sizes.playerShipHeight = 20 * SI.Sizes.modifier;
+	SI.Sizes.playerStep = 20 * SI.Sizes.modifier;
+
+	SI.Sizes.enemyInRow = 6 * SI.Sizes.modifier;
+	SI.Sizes.enemyInColumn = 6 * SI.Sizes.modifier;
+	SI.Sizes.enemyWidth = 40 * SI.Sizes.modifier;
+	SI.Sizes.enemyHeight = 30 * SI.Sizes.modifier;
+	SI.Sizes.enemyStepHort = 3 * SI.Sizes.modifier;
+	SI.Sizes.enemyStepVert = 10 * SI.Sizes.modifier;
+	SI.Sizes.enemySpacing = 15 * SI.Sizes.modifier;
+
+	SI.Sizes.rocketHeight = 20 * SI.Sizes.modifier;
+	SI.Sizes.rocketWidth = 6 * SI.Sizes.modifier;
+	SI.Sizes.rocketStep = 20 * SI.Sizes.modifier;
+
+	SI.Sizes.explosionWidth = 40 * SI.Sizes.modifier;
+	SI.Sizes.explosionHeight = 40 * SI.Sizes.modifier;
+
+	SI.Sizes.font =  25 * SI.Sizes.modifier + 'px Arial';
+	SI.Sizes.messageFont =  0.125 * SI.Sizes.modifier * SI.Sizes.width + 'px Arial';
 	SI.Sizes.topMargin = 0;
-	SI.Sizes.leftMargin =  10;
-	SI.Sizes.bottomMargin = SI.Sizes.height - 60;
-	SI.Sizes.rightMargin = SI.Sizes.width - 10;
+	SI.Sizes.leftMargin =  10 * SI.Sizes.modifier;
+	SI.Sizes.bottomMargin = SI.Sizes.height - 60 * SI.Sizes.modifier;
+	SI.Sizes.rightMargin = SI.Sizes.width - 10 * SI.Sizes.modifier;
 
-	SI.Sizes.textMargin = SI.Sizes.bottomMargin + 45;
-	SI.Sizes.textRightMargin = SI.Sizes.width - 140;
+	SI.Sizes.textMargin = SI.Sizes.bottomMargin + 45 * SI.Sizes.modifier;
+	SI.Sizes.textRightMargin = SI.Sizes.width - 140 * SI.Sizes.modifier;
 
-	SI.Sizes.popUpX = 50;
-	SI.Sizes.popUpY = 100;
-	SI.Sizes.popUpWidth = SI.Sizes.width - 100;
-	SI.Sizes.popUpHeight = SI.Sizes.height - 400;
+	SI.Sizes.popUpX = 50 * SI.Sizes.modifier;
+	SI.Sizes.popUpY = 100 * SI.Sizes.modifier;
+	SI.Sizes.popUpWidth = SI.Sizes.width - 100 * SI.Sizes.modifier;
+	SI.Sizes.popUpHeight = SI.Sizes.height - 400 * SI.Sizes.modifier;
 
 SI.Images = {};
 
@@ -61,10 +63,14 @@ SI.Images.backgroundImg.src = 'images/background.png';
 SI.Images.playerImg = new Image();
 SI.Images.playerImg.src = 'images/player.png';
 SI.Images.playerImg.phases = 1 - 1;
+SI.Images.playerImg.width = 40;
+SI.Images.playerImg.height = 20;
 
 SI.Images.enemyImg = new Image();
 SI.Images.enemyImg.src = 'images/enemy.png';
 SI.Images.enemyImg.phases = 2 - 1;
+SI.Images.enemyImg.width = 40;
+SI.Images.enemyImg.height = 30;
 
 SI.Images.rocketImg = new Image();
 SI.Images.rocketImg.src = 'images/rocket.png';
@@ -72,6 +78,8 @@ SI.Images.rocketImg.src = 'images/rocket.png';
 SI.Images.explosionImg = new Image();
 SI.Images.explosionImg.src = 'images/explosion.png';
 SI.Images.explosionImg.phases = 7 - 1;
+SI.Images.explosionImg.width = 40;
+SI.Images.explosionImg.height = 40;
 
 /*
  * Colors for fillStyle and strokeStyle

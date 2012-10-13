@@ -53,6 +53,21 @@ SI.Game.prototype.attachKeyboardEvents = function() {
 	$(document).keyup(function (e) {
 		self.onKeyUp(e);
 	});
+
+	$(document).bind('touchmove', function (e) {
+		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		if(touch.pageX <= self.ctx.canvas.width) {
+			e.preventDefault();
+			self.playerShip.setLocation(touch.pageX - self.ctx.canvas.offsetLeft);
+		}
+	});
+	$(document).bind('touchstart', function (e) {
+		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		if(touch.pageX <= self.ctx.canvas.width && touch.pageY <= SI.Sizes.bottomMargin) {
+			e.preventDefault();
+			self.launchPlayerRocket();
+		}
+	});
 }
 
 /*
@@ -232,18 +247,22 @@ SI.Game.prototype.launchEnemyRocket = function () {
 	}
 }
 
+SI.Game.prototype.launchPlayerRocket = function () {
+		if (this.okToFire && this.rocketsByPlayer.length < SI.Sizes.maxRockets) {
+			this.lockRocketLauncher();
+			this.rocketsByPlayer.push(new SI.Rocket({
+				x: this.playerShip.x + this.playerShip.width / 2 - SI.Sizes.rocketWidth / 2,
+				y: this.playerShip.y,
+				direction: SI.Directions.Up}));
+		}
+}
 /*
  * Chnage the current key pressed
  */
 SI.Game.prototype.onKeyDown = function (e) {
 	this.currentKey = e.which;
-	if(this.currentKey == SI.Keys.Up && this.okToFire &&
-			this.rocketsByPlayer.length < SI.Sizes.maxRockets) {
-		this.lockRocketLauncher();
-		this.rocketsByPlayer.push(new SI.Rocket({
-					x: this.playerShip.x + this.playerShip.width / 2 - SI.Sizes.rocketWidth / 2,
-					y: this.playerShip.y,
-					direction: SI.Directions.Up}));
+	if(this.currentKey == SI.Keys.Up) {
+		this.launchPlayerRocket();
 	}
 }
 SI.Game.prototype.onKeyUp = function (e) {
@@ -400,6 +419,7 @@ SI.Game.prototype.drawStatus = function () {
 }
 
 SI.Game.prototype.popUpMessage = function (message) {
+	message = SI.Sizes.width;
 	this.ctx.fillStyle = SI.Colors.popUpBackground
 	this.ctx.strokeStyle = SI.Colors.gold;
 	this.ctx.fillRect(SI.Sizes.popUpX,
@@ -413,7 +433,7 @@ SI.Game.prototype.popUpMessage = function (message) {
 	this.ctx.fillStyle = SI.Colors.text;
 	this.ctx.font = SI.Sizes.messageFont;
 	this.ctx.fillText(message,
-			(SI.Sizes.popUpX + SI.Sizes.popUpWidth) / 2 - 180,
+			(SI.Sizes.popUpX + SI.Sizes.popUpWidth - this.ctx.measureText(message).width) / 2, //+ ,
 			(SI.Sizes.popUpY + SI.Sizes.popUpHeight) / 2);
 }
 
@@ -427,7 +447,7 @@ SI.Game.prototype.ChangeEnemySpritePhase = function (ships) {
 		this.enemyPhase = 0;
 	}
 	else {
-		newImgX = (this.enemyPhase + 1) * SI.Sizes.enemyWidth;
+		newImgX = (this.enemyPhase + 1) * SI.Images.enemyImg.width;
 		this.enemyPhase += 1;
 	}
 	for (var i = 0; i < ships.length; i += 1) {
@@ -440,11 +460,11 @@ SI.Game.prototype.ChangeExplosionPhase = function (explosions) {
 	for (var i = 0; i < explosions.length; i += 1) {
 		// explosion expanding
 		if(explosions[i].expanding) {
-			if(explosions[i].imgX == SI.Images.explosionImg.phases * SI.Sizes.explosionWidth) {
+			if(explosions[i].imgX == SI.Images.explosionImg.phases * SI.Images.explosionImg.width) {
 				explosions[i].expanding = false;
 			}
 			else {
-				explosions[i].imgX += SI.Sizes.explosionWidth;
+				explosions[i].imgX += SI.Images.explosionImg.width;
 			}
 		}
 		//explosion disappearing
@@ -454,7 +474,7 @@ SI.Game.prototype.ChangeExplosionPhase = function (explosions) {
 				explosions[i].done = true;
 			}
 			else {
-				explosions[i].imgX -= SI.Sizes.explosionWidth;
+				explosions[i].imgX -= SI.Images.explosionImg.width;
 			}
 		}
 	}
