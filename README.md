@@ -1,6 +1,6 @@
 #Space Invaders implementation in HTML5 and Javascript <br />
 Hosted on:
-<a href="http://ozelentok.net76.net">http://ozelentok.net76.net/space</a>
+<a href="http://ozelentok.net76.net/space">http://ozelentok.net76.net/space</a>
 ##Instructions
 
 ###Movment:
