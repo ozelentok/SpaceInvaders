@@ -6,12 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<style type="text/css">
 			body {
-				background-color:#111;
+				background-color: #000;
 				margin: 0;
 				padding:0;
 				line-height: 0;
 			}	
+			#background {
+				position: absolute;
+				z-index:0;
+				padding:0;
+				margin:0;
+				display:none;
+			}
 			#gameview {
+				position: absolute;
+				z-index:1;
 				margin: 0;
 				padding:0;
 				display: block;
@@ -20,6 +29,7 @@
 	</head>
 	<body>
 		<canvas id="gameview"></canvas>
+		<img id="background" src="images/background.png">
 		<script type="text/javascript" src="vendor/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="javascripts/Const.js"></script>
 		<script type="text/javascript" src="javascripts/SpaceShip.js"></script>

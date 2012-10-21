@@ -40,6 +40,12 @@ SI.Game.prototype.start = function () {
  */
 SI.Game.prototype.initializeCanvas = function () {
 	var $canvas = $('#gameview');
+	
+	var $bgimg = $('#background');
+	$bgimg.css('display', 'block');
+	$bgimg.attr('width', SI.Sizes.width + 'px');
+	$bgimg.attr('height', SI.Sizes.height + 'px');
+
 	this.ctx = $canvas[0].getContext('2d');
 	this.ctx.canvas.height = SI.Sizes.height;
 	this.ctx.canvas.width = SI.Sizes.width;
@@ -360,7 +366,7 @@ SI.Game.prototype.drawAllElements = function () {
 	}
 	this.ChangeExplosionPhase(this.explosions);
 	this.frames += 1;
-	this.drawGrid();
+	this.clearGrid();
 	this.drawGround();
 	this.drawPlayerShip();
 	this.drawEnemyShips();
@@ -370,10 +376,10 @@ SI.Game.prototype.drawAllElements = function () {
 }
 
 /*
- * Draws the game grid
+ * Clears the game grid
  */
-SI.Game.prototype.drawGrid = function () {
-	this.ctx.drawImage(SI.Images.backgroundImg, 0, 0, SI.Sizes.width, SI.Sizes.height);
+SI.Game.prototype.clearGrid = function () {
+	this.ctx.clearRect(0, 0, SI.Sizes.width, SI.Sizes.height);
 }
 /*
  * Draws the player ship

@@ -59,9 +59,6 @@ SI.Sizes = {
 
 SI.Images = {};
 
-SI.Images.backgroundImg = new Image();
-SI.Images.backgroundImg.src = 'images/background.png';
-
 
 SI.Images.playerImg = new Image();
 SI.Images.playerImg.src = 'images/player.png';
