@@ -427,7 +427,6 @@ SI.Game.prototype.newGamePrompt = function (message) {
 	var promptQuestion = message + "\nTo start a new game, press Up arrow key or tap the screen";
 	var playAgain = confirm(promptQuestion);
 	if (playAgain) {
-		this.attachKeyboardEvents();
 		this.initializeGame();
 	}
 }
