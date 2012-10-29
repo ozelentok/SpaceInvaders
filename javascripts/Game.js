@@ -120,13 +120,13 @@ SI.Game.prototype.initializeGame = function () {
 SI.Game.prototype.checkEndGame = function () {
 	if(this.enemies.ships.length == 0) {
 		clearInterval(this.clock);
-		this.newGamePrompt("You Win!");
+		this.newGamePrompt('You Win!');
 	}
 	else if(this.lives == 0 ||
 			this.enemies.ships[this.enemies.ships.length - 1][0].y >=
 			SI.Sizes.bottomMargin - SI.Sizes.enemyHeight) {
 		clearInterval(this.clock);
-		this.newGamePrompt("You Lost!");
+		this.newGamePrompt('You Lost!');
 	}
 }
 
@@ -424,7 +424,7 @@ SI.Game.prototype.drawStatus = function () {
 }
 
 SI.Game.prototype.newGamePrompt = function (message) {
-	var promptQuestion = message + "\nTo start a new game, press Up arrow key or tap the screen";
+	var promptQuestion = message + '\nPlay Again?';
 	var playAgain = confirm(promptQuestion);
 	if (playAgain) {
 		this.initializeGame();
