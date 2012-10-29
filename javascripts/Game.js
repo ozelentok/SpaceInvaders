@@ -20,7 +20,6 @@ SI.Game = function() {
 	this.okToFire = true;
 	// clearance to fire again (enemies)
 	this.turnToFire = 0;
-	this.gameRunning = false;
 
 
 }
@@ -67,14 +66,9 @@ SI.Game.prototype.attachKeyboardEvents = function() {
 		self.playerShip.setLocation(touch.pageX - self.ctx.canvas.offsetLeft);
 	});
 	$(document).bind('touchstart', function (e) {
-		if(self.gameRunning) {
-			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-			e.preventDefault();
-			self.launchPlayerRocket();
-		}
-		else {
-			self.initializeGame();
-		}
+		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		e.preventDefault();
+		self.launchPlayerRocket();
 	});
 }
 
@@ -107,7 +101,6 @@ SI.Game.prototype.initializeGame = function () {
 	this.enemyPhase = 0;
 	this.frames = 0;
 	this.enemySpeed = SI.Sizes.enemyStepHort;
-	this.gameRunning = true;
 
 	var self = this;
 	this.clock = setInterval(function () {	
@@ -127,13 +120,13 @@ SI.Game.prototype.initializeGame = function () {
 SI.Game.prototype.checkEndGame = function () {
 	if(this.enemies.ships.length == 0) {
 		clearInterval(this.clock);
-		this.popUpMessage("You Win!");
-		this.gameRunning = false;
+		this.newGamePrompt("You Win!");
 	}
-	else if(this.lives == 0 || this.enemies.ships[this.enemies.ships.length - 1][0].y >= SI.Sizes.bottomMargin - SI.Sizes.enemyHeight) {
+	else if(this.lives == 0 ||
+			this.enemies.ships[this.enemies.ships.length - 1][0].y >=
+			SI.Sizes.bottomMargin - SI.Sizes.enemyHeight) {
 		clearInterval(this.clock);
-		this.popUpMessage("You Lost!");
-		this.gameRunning = false;
+		this.newGamePrompt("You Lost!");
 	}
 }
 
@@ -274,12 +267,7 @@ SI.Game.prototype.launchPlayerRocket = function () {
 SI.Game.prototype.onKeyDown = function (e) {
 	this.currentKey = e.which;
 	if(this.currentKey == SI.Keys.Up) {
-		if(this.gameRunning) {
-			this.launchPlayerRocket();
-		}
-		else {
-			this.initializeGame();
-		}
+		this.launchPlayerRocket();
 	}
 }
 SI.Game.prototype.onKeyUp = function (e) {
@@ -435,31 +423,14 @@ SI.Game.prototype.drawStatus = function () {
 	this.ctx.fillText(output, SI.Sizes.textRightMargin, SI.Sizes.textMargin); 
 }
 
-SI.Game.prototype.popUpMessage = function (message) {
-	var promptQuestion = "To start a new game, press Up arrow key or tap the screen";
-	this.ctx.fillStyle = SI.Colors.popUpBackground
-	this.ctx.strokeStyle = SI.Colors.gold;
-	this.ctx.fillRect(SI.Sizes.popUpX,
-			SI.Sizes.popUpY,
-			SI.Sizes.popUpWidth,
-			SI.Sizes.popUpHeight);
-	this.ctx.strokeRect(SI.Sizes.popUpX,
-			SI.Sizes.popUpY,
-			SI.Sizes.popUpWidth,
-			SI.Sizes.popUpHeight);
-	this.ctx.fillStyle = SI.Colors.text;
-	this.ctx.font = SI.Sizes.messageFont;
-	this.ctx.fillText(message,
-			SI.Sizes.popUpX + (SI.Sizes.popUpWidth - this.ctx.measureText(message).width) / 2,
-			SI.Sizes.popUpY + SI.Sizes.popUpHeight / 2);
-	this.ctx.font = SI.Sizes.font;
-	this.ctx.fillText(promptQuestion,
-			SI.Sizes.popUpX + (SI.Sizes.popUpWidth - this.ctx.measureText(promptQuestion).width) / 2,
-			SI.Sizes.popUpY + SI.Sizes.popUpHeight / 1.5);
+SI.Game.prototype.newGamePrompt = function (message) {
+	var promptQuestion = message + "\nTo start a new game, press Up arrow key or tap the screen";
+	var playAgain = confirm(promptQuestion);
+	if (playAgain) {
+		this.attachKeyboardEvents();
+		this.initializeGame();
+	}
 }
-
-
-
 //===================Sprite Change==============================
 SI.Game.prototype.ChangeEnemySpritePhase = function (ships) {
 	var newImgX;

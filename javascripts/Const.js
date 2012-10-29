@@ -88,8 +88,6 @@ SI.Colors = {
 	rocket: '#07f',
 	ground: 'green',
 	text: 'white',
-	gold: '#ff0',
-	popUpBackground: 'rgba(0, 0, 0, 0.5)'
 }
 /*
  * Directions for rockets and spaceships
