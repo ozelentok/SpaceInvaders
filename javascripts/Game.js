@@ -265,13 +265,19 @@ SI.Game.prototype.launchPlayerRocket = function () {
  * Chnage the current key pressed
  */
 SI.Game.prototype.onKeyDown = function (e) {
-	this.currentKey = e.which;
-	if(this.currentKey == SI.Keys.Up) {
+	if(e.which == SI.Keys.Right)
+		this.moveRight = true;
+	else if(e.which == SI.Keys.Left)
+		this.moveLeft = true;
+	else if(e.which == SI.Keys.Up) {
 		this.launchPlayerRocket();
 	}
 }
 SI.Game.prototype.onKeyUp = function (e) {
-	this.currentKey = 0;
+	if(e.which == SI.Keys.Right)
+		this.moveRight = false;
+	else if(e.which == SI.Keys.Left)
+		this.moveLeft = false;
 }
 
 //===================Moving Elements==============================
@@ -290,10 +296,10 @@ SI.Game.prototype.moveAllElements = function () {
  * Moves the player if a key is currently press(left or right)
  */
 SI.Game.prototype.movePlayerShip = function () {
-	if(this.currentKey == SI.Keys.Right) {
+	if(this.moveRight) {
 		this.playerShip.move(SI.Sizes.playerStep, 0);
 	}
-	else if(this.currentKey == SI.Keys.Left) {
+	else if(this.moveLeft) {
 		this.playerShip.move(-SI.Sizes.playerStep, 0);
 	}
 }
